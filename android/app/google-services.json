@@ -1,0 +1,106 @@
+{
+  "project_info": {
+    "project_number": "432865955205",
+    "project_id": "readpro-c466c",
+    "storage_bucket": "readpro-c466c.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:432865955205:android:4556194f340a0d5aaf48ec",
+        "android_client_info": {
+          "package_name": "com.enigmanex.book_reading"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "432865955205-36u7is9vuflne5uf1a0egflathr3unse.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.enigmanex.book_reading",
+            "certificate_hash": "547facf4461d3bef0303621401b9a75b62e39d00"
+          }
+        },
+        {
+          "client_id": "432865955205-doic2i65inbqsev9e8ujqld6cdcsk1t5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.enigmanex.book_reading",
+            "certificate_hash": "8b46c337419243cce78e66a6cec933a91a6bcaa0"
+          }
+        },
+        {
+          "client_id": "432865955205-fcp45o8t2a2ihbfb4v1f00icovifvfrp.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.enigmanex.book_reading",
+            "certificate_hash": "8733a7150de4e4e98d2cb9060fc3dbe2ff1ad9d5"
+          }
+        },
+        {
+          "client_id": "432865955205-i0rhqu8c639heiu70ull8p9032rumsk9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBT5LOt_GgCC1ACvTnNB_ylVfcOVD78j6M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "432865955205-i0rhqu8c639heiu70ull8p9032rumsk9.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "432865955205-4p23tgp1o0h322eafg15c3p3piq1llhr.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.bookReading"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:432865955205:android:bafa8df2d5d968ecaf48ec",
+        "android_client_info": {
+          "package_name": "com.example.attendence_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "432865955205-i0rhqu8c639heiu70ull8p9032rumsk9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBT5LOt_GgCC1ACvTnNB_ylVfcOVD78j6M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "432865955205-i0rhqu8c639heiu70ull8p9032rumsk9.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "432865955205-4p23tgp1o0h322eafg15c3p3piq1llhr.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.bookReading"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
