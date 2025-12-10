@@ -292,85 +292,92 @@ class _LeaveApplicationFlowScreenState
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 16),
-            Wrap(
-              spacing: 15,
-              runSpacing: 12,
-              children: _leaveTypes.map((typeOption) {
-                final isSelected = _selectedType == typeOption;
-                return GestureDetector(
-                  onTap: () {
-                    setState(() {
-                      _selectedType = typeOption;
-                      _selectedSubType = null;
-                    });
-                  },
-                  child: AnimatedContainer(
-                    duration: const Duration(milliseconds: 250),
-                    width: 170,
-                    padding: const EdgeInsets.symmetric(
-                      vertical: 18,
-                      horizontal: 12,
-                    ),
-                    decoration: BoxDecoration(
-                      gradient: isSelected
-                          ? LinearGradient(
-                              colors: typeOption.gradient,
-                              begin: Alignment.topLeft,
-                              end: Alignment.bottomRight,
-                            )
-                          : const LinearGradient(
-                              colors: [Colors.white, Colors.white],
+            LayoutBuilder(
+              builder: (context, constraints) {
+                // Calculate width for exactly 2 items per row
+                // Account for: spacing between items (15)
+                final itemWidth = (constraints.maxWidth - 15) / 2;
+                return Wrap(
+                  spacing: 15,
+                  runSpacing: 12,
+                  children: _leaveTypes.map((typeOption) {
+                    final isSelected = _selectedType == typeOption;
+                    return GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          _selectedType = typeOption;
+                          _selectedSubType = null;
+                        });
+                      },
+                      child: AnimatedContainer(
+                        duration: const Duration(milliseconds: 250),
+                        width: itemWidth,
+                        padding: const EdgeInsets.symmetric(
+                          vertical: 18,
+                          horizontal: 12,
+                        ),
+                        decoration: BoxDecoration(
+                          gradient: isSelected
+                              ? LinearGradient(
+                                  colors: typeOption.gradient,
+                                  begin: Alignment.topLeft,
+                                  end: Alignment.bottomRight,
+                                )
+                              : const LinearGradient(
+                                  colors: [Colors.white, Colors.white],
+                                ),
+                          borderRadius: BorderRadius.circular(24),
+                          border: Border.all(
+                            color: isSelected
+                                ? Colors.transparent
+                                : Colors.grey.shade300,
+                          ),
+                          boxShadow: [
+                            BoxShadow(
+                              color: isSelected
+                                  ? typeOption.gradient.last.withOpacity(0.35)
+                                  : Colors.grey.shade200,
+                              blurRadius: isSelected ? 14 : 8,
+                              offset: const Offset(0, 8),
                             ),
-                      borderRadius: BorderRadius.circular(24),
-                      border: Border.all(
-                        color: isSelected
-                            ? Colors.transparent
-                            : Colors.grey.shade300,
+                          ],
+                        ),
+                        child: Column(
+                          children: [
+                            Container(
+                              padding: const EdgeInsets.all(11),
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: isSelected
+                                    ? Colors.white.withOpacity(0.25)
+                                    : Colors.grey.shade100,
+                              ),
+                              child: Icon(
+                                typeOption.icon,
+                                size: 28,
+                                color: isSelected
+                                    ? Colors.white
+                                    : AppColors.primary,
+                              ),
+                            ),
+                            const SizedBox(height: 12),
+                            Text(
+                              typeOption.name,
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                color: isSelected
+                                    ? Colors.white
+                                    : Colors.grey.shade800,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
-                      boxShadow: [
-                        BoxShadow(
-                          color: isSelected
-                              ? typeOption.gradient.last.withOpacity(0.35)
-                              : Colors.grey.shade200,
-                          blurRadius: isSelected ? 14 : 8,
-                          offset: const Offset(0, 8),
-                        ),
-                      ],
-                    ),
-                    child: Column(
-                      children: [
-                        Container(
-                          padding: const EdgeInsets.all(11),
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: isSelected
-                                ? Colors.white.withOpacity(0.25)
-                                : Colors.grey.shade100,
-                          ),
-                          child: Icon(
-                            typeOption.icon,
-                            size: 28,
-                            color: isSelected
-                                ? Colors.white
-                                : AppColors.primary,
-                          ),
-                        ),
-                        const SizedBox(height: 12),
-                        Text(
-                          typeOption.name,
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            color: isSelected
-                                ? Colors.white
-                                : Colors.grey.shade800,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
+                    );
+                  }).toList(),
                 );
-              }).toList(),
+              },
             ),
             const SizedBox(height: 24),
             _buildDateField(
@@ -801,7 +808,7 @@ class _LeaveApplicationFlowScreenState
 
   Widget _buildSummaryTile(String title, String value, {IconData? icon}) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 6),
+      padding: const EdgeInsets.symmetric(vertical: 2),
       child: Material(
         elevation: 0,
         shadowColor: AppColors.primary.withOpacity(0.3),
@@ -814,7 +821,7 @@ class _LeaveApplicationFlowScreenState
           child: ListTile(
             contentPadding: const EdgeInsets.symmetric(
               horizontal: 20,
-              vertical: 10,
+              vertical: 1,
             ),
             leading: icon != null
                 ? CircleAvatar(

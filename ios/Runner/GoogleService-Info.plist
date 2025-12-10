@@ -2,24 +2,18 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>CLIENT_ID</key>
-	<string>432865955205-j99jlqcgtj2l2b9bk65sv4g1pfqi5pa8.apps.googleusercontent.com</string>
-	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.432865955205-j99jlqcgtj2l2b9bk65sv4g1pfqi5pa8</string>
-	<key>ANDROID_CLIENT_ID</key>
-	<string>432865955205-36u7is9vuflne5uf1a0egflathr3unse.apps.googleusercontent.com</string>
 	<key>API_KEY</key>
-	<string>AIzaSyB-4hpljrAVJ_rhRUzSYdV83HDe7wLYz0Y</string>
+	<string>AIzaSyAaaBc_mY4EJsd6cDZAKgU17F3eoR7MPQA</string>
 	<key>GCM_SENDER_ID</key>
-	<string>432865955205</string>
+	<string>612154567444</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
 	<string>com.example.attendenceApp</string>
 	<key>PROJECT_ID</key>
-	<string>readpro-c466c</string>
+	<string>webchat-d646a</string>
 	<key>STORAGE_BUCKET</key>
-	<string>readpro-c466c.firebasestorage.app</string>
+	<string>webchat-d646a.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -31,6 +25,8 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:432865955205:ios:cf03bc0bba13b7b6af48ec</string>
+	<string>1:612154567444:ios:8bcada5d17740b6393b001</string>
+	<key>DATABASE_URL</key>
+	<string>https://webchat-d646a-default-rtdb.asia-southeast1.firebasedatabase.app</string>
 </dict>
 </plist>

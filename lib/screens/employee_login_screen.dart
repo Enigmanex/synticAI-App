@@ -16,11 +16,13 @@ class _EmployeeLoginScreenState extends State<EmployeeLoginScreen> {
   final auth = Get.find<AuthController>();
 
   String name = "", email = "", password = "";
+  String selectedRole = "employee"; // "employee" or "intern"
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
         leading: IconButton(
           onPressed: () => Get.back(),
           icon: const Icon(Icons.arrow_back, color: Colors.white),
@@ -30,9 +32,7 @@ class _EmployeeLoginScreenState extends State<EmployeeLoginScreen> {
         foregroundColor: Colors.white,
       ),
       body: Container(
-        decoration: BoxDecoration(
-          gradient: AppColors.backgroundGradient,
-        ),
+        decoration: BoxDecoration(gradient: AppColors.backgroundGradient),
         child: Center(
           child: Obx(
             () => SingleChildScrollView(
@@ -54,7 +54,10 @@ class _EmployeeLoginScreenState extends State<EmployeeLoginScreen> {
                           height: 80,
                           decoration: BoxDecoration(
                             gradient: LinearGradient(
-                              colors: [Colors.grey.shade700, Colors.grey.shade900],
+                              colors: [
+                                Colors.grey.shade700,
+                                Colors.grey.shade900,
+                              ],
                             ),
                             shape: BoxShape.circle,
                           ),
@@ -90,8 +93,13 @@ class _EmployeeLoginScreenState extends State<EmployeeLoginScreen> {
                           TextField(
                             decoration: InputDecoration(
                               labelText: "Name",
-                              prefixIcon: Icon(Icons.person, color: AppColors.primary),
-                              labelStyle: TextStyle(color: Colors.grey.shade600),
+                              prefixIcon: Icon(
+                                Icons.person,
+                                color: AppColors.primary,
+                              ),
+                              labelStyle: TextStyle(
+                                color: Colors.grey.shade600,
+                              ),
                               focusedBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(12),
                                 borderSide: BorderSide(
@@ -114,7 +122,10 @@ class _EmployeeLoginScreenState extends State<EmployeeLoginScreen> {
                           keyboardType: TextInputType.emailAddress,
                           decoration: InputDecoration(
                             labelText: "Email",
-                            prefixIcon: Icon(Icons.email, color: AppColors.primary),
+                            prefixIcon: Icon(
+                              Icons.email,
+                              color: AppColors.primary,
+                            ),
                             labelStyle: TextStyle(color: Colors.grey.shade600),
                             focusedBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(12),
@@ -133,12 +144,53 @@ class _EmployeeLoginScreenState extends State<EmployeeLoginScreen> {
                           onChanged: (v) => email = v,
                         ),
 
+                        if (isRegister) const SizedBox(height: 16),
+
+                        // Role Selection (only shown during registration)
+                        if (isRegister)
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                "Select Role",
+                                style: TextStyle(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w600,
+                                  color: Colors.grey.shade700,
+                                ),
+                              ),
+                              const SizedBox(height: 8),
+                              Row(
+                                children: [
+                                  Expanded(
+                                    child: _buildRoleOption(
+                                      "Employee",
+                                      "employee",
+                                      Icons.person,
+                                    ),
+                                  ),
+                                  const SizedBox(width: 12),
+                                  Expanded(
+                                    child: _buildRoleOption(
+                                      "Intern",
+                                      "intern",
+                                      Icons.school,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+
                         const SizedBox(height: 16),
 
                         TextField(
                           decoration: InputDecoration(
                             labelText: "Password",
-                            prefixIcon: Icon(Icons.lock, color: AppColors.primary),
+                            prefixIcon: Icon(
+                              Icons.lock,
+                              color: AppColors.primary,
+                            ),
                             labelStyle: TextStyle(color: Colors.grey.shade600),
                             focusedBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(12),
@@ -179,7 +231,12 @@ class _EmployeeLoginScreenState extends State<EmployeeLoginScreen> {
                                 ? null
                                 : () {
                                     isRegister
-                                        ? auth.register(name, email, password)
+                                        ? auth.register(
+                                            name,
+                                            email,
+                                            password,
+                                            role: selectedRole,
+                                          )
                                         : auth.login(email, password);
                                   },
                             style: ElevatedButton.styleFrom(
@@ -228,5 +285,47 @@ class _EmployeeLoginScreenState extends State<EmployeeLoginScreen> {
       ),
     );
   }
-}
 
+  Widget _buildRoleOption(String label, String role, IconData icon) {
+    final isSelected = selectedRole == role;
+    return InkWell(
+      onTap: () {
+        setState(() {
+          selectedRole = role;
+        });
+      },
+      borderRadius: BorderRadius.circular(12),
+      child: Container(
+        padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 12),
+        decoration: BoxDecoration(
+          color: isSelected
+              ? AppColors.primary.withOpacity(0.1)
+              : Colors.grey.shade50,
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(
+            color: isSelected ? AppColors.primary : Colors.grey.shade300,
+            width: isSelected ? 2 : 1,
+          ),
+        ),
+        child: Column(
+          children: [
+            Icon(
+              icon,
+              color: isSelected ? AppColors.primary : Colors.grey.shade600,
+              size: 32,
+            ),
+            const SizedBox(height: 8),
+            Text(
+              label,
+              style: TextStyle(
+                fontSize: 14,
+                fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+                color: isSelected ? AppColors.primary : Colors.grey.shade700,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}

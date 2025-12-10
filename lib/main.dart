@@ -1,14 +1,47 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'routes/app_routes.dart';
 import 'controllers/auth_controller.dart';
+import 'services/notification_service.dart';
+import 'services/prayer_time_service.dart';
 import 'utils/app_colors.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+
+  // Initialize notification service FIRST (this creates channels and initializes local notifications)
+  print('=== Initializing Notification Service ===');
+  final notificationService = NotificationService();
+  await notificationService.initialize();
+  print('Notification service initialized');
+
+  // Wait a bit to ensure notification service is fully initialized
+  // await Future.delayed(const Duration(milliseconds: 1000));
+
+  // // Initialize prayer times and schedule notifications
+  // print('=== Initializing Prayer Time Service ===');
+  // final prayerTimeService = PrayerTimeService();
+  // await prayerTimeService.initializePrayerTimes();
+  // print('Prayer times initialized');
+
+  // // Schedule local notifications for prayer times
+  // print('=== Scheduling Prayer Notifications ===');
+  // try {
+  //   await prayerTimeService.scheduleAllPrayerNotifications();
+  //   print('✓ Prayer notifications scheduled successfully');
+  // } catch (e) {
+  //   print('Error scheduling prayer notifications: $e');
+  // }
+
+  // // Start listening for prayer time changes in Firebase
+  // prayerTimeService.startListeningForPrayerTimeChanges();
+
+  print('=== App Initialization Complete ===');
+
   Get.put(AuthController());
   runApp(const AttendanceApp());
 }

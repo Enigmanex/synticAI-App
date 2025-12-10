@@ -1,0 +1,53 @@
+==============================================
+SEND TEST NOTIFICATION - COPY THIS CODE!
+==============================================
+
+METHOD 1: Add a Button (Easiest!)
+----------------------------------
+Paste this button code anywhere in your app:
+
+ElevatedButton(
+  onPressed: () async {
+    final service = PrayerTimeService();
+    final prayers = await service.getPrayerTimes();
+    final testPrayer = prayers.firstWhere(
+      (p) => p.name == 'Asr',
+      orElse: () => prayers.first,
+    );
+    await service.sendPrayerPushNotification(testPrayer);
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text('✅ Test sent! Check your device!')),
+    );
+  },
+  child: Text('🧪 TEST PUSH NOTIFICATION'),
+)
+
+
+METHOD 2: Add to main.dart (Auto-sends on app start)
+-----------------------------------------------------
+Add this at the END of main() function in lib/main.dart:
+
+Future.delayed(Duration(seconds: 5), () async {
+  final service = PrayerTimeService();
+  final prayers = await service.getPrayerTimes();
+  await service.sendPrayerPushNotification(prayers.first);
+  print('✅ Test notification sent!');
+});
+
+
+METHOD 3: Run from Flutter Console
+-----------------------------------
+While app is running, open Flutter console and type:
+
+final service = PrayerTimeService();
+final prayers = await service.getPrayerTimes();
+await service.sendPrayerPushNotification(prayers.first);
+
+==============================================
+THAT'S IT! Choose any method and test! 🚀
+==============================================
+
+After sending, check:
+1. Your device for notification
+2. Firestore → notification_requests collection
+

@@ -18,9 +18,7 @@ const Set<String> _imageExtensions = {
   "webp",
 };
 
-const Set<String> _documentExtensions = {
-  "pdf",
-};
+const Set<String> _documentExtensions = {"pdf"};
 
 class MyLeaveApplicationsScreen extends StatefulWidget {
   const MyLeaveApplicationsScreen({super.key});
@@ -30,8 +28,7 @@ class MyLeaveApplicationsScreen extends StatefulWidget {
       _MyLeaveApplicationsScreenState();
 }
 
-class _MyLeaveApplicationsScreenState
-    extends State<MyLeaveApplicationsScreen> {
+class _MyLeaveApplicationsScreenState extends State<MyLeaveApplicationsScreen> {
   final FirestoreService _fs = FirestoreService();
   String _userId = "";
 
@@ -50,18 +47,14 @@ class _MyLeaveApplicationsScreenState
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        decoration: BoxDecoration(
-          gradient: AppColors.backgroundGradient,
-        ),
+        decoration: BoxDecoration(gradient: AppColors.backgroundGradient),
         child: SafeArea(
           child: Column(
             children: [
               // Header
               _buildHeader(),
               // Leave Applications List
-              Expanded(
-                child: _buildLeaveApplicationsList(),
-              ),
+              Expanded(child: _buildLeaveApplicationsList()),
             ],
           ),
         ),
@@ -122,11 +115,7 @@ class _MyLeaveApplicationsScreenState
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Icon(
-                  Icons.error_outline,
-                  size: 60,
-                  color: Colors.red.shade300,
-                ),
+                Icon(Icons.error_outline, size: 60, color: Colors.red.shade300),
                 const SizedBox(height: 16),
                 Text(
                   "Error loading applications",
@@ -163,7 +152,7 @@ class _MyLeaveApplicationsScreenState
           );
         }
 
-    if (!snapshot.hasData) {
+        if (!snapshot.hasData) {
           return Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -198,7 +187,7 @@ class _MyLeaveApplicationsScreenState
                 Icon(
                   Icons.event_busy_outlined,
                   size: 80,
-                  color: Colors.grey.shade300,
+                  color: Colors.grey.shade500,
                 ),
                 const SizedBox(height: 16),
                 Text(
@@ -247,7 +236,8 @@ class _MyLeaveApplicationsScreenState
     final leaveType = data["leaveType"] as String? ?? "Leave";
     final leaveSubType = data["leaveSubType"] as String? ?? "General";
     final documentUrl = data["documentUrl"] as String?;
-    final documentName = data["documentName"] as String? ?? "Supporting document";
+    final documentName =
+        data["documentName"] as String? ?? "Supporting document";
     final documentPreviewType = documentUrl != null && documentUrl.isNotEmpty
         ? _documentPreviewTypeFromUrl(documentUrl)
         : DocumentPreviewType.other;
@@ -280,10 +270,7 @@ class _MyLeaveApplicationsScreenState
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(20),
-        border: Border.all(
-          color: statusColor.withOpacity(0.3),
-          width: 2,
-        ),
+        border: Border.all(color: statusColor.withOpacity(0.3), width: 2),
         boxShadow: [
           BoxShadow(
             color: Colors.black.withOpacity(0.08),
@@ -300,7 +287,10 @@ class _MyLeaveApplicationsScreenState
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 12,
+                  vertical: 6,
+                ),
                 decoration: BoxDecoration(
                   color: statusColor.withOpacity(0.1),
                   borderRadius: BorderRadius.circular(20),
@@ -324,10 +314,7 @@ class _MyLeaveApplicationsScreenState
               if (updatedAt != null && status != "pending")
                 Text(
                   "Updated: ${DateFormat('MMM d, y').format(updatedAt)}",
-                  style: TextStyle(
-                    fontSize: 11,
-                    color: Colors.grey.shade600,
-                  ),
+                  style: TextStyle(fontSize: 11, color: Colors.grey.shade600),
                 ),
             ],
           ),
@@ -338,7 +325,11 @@ class _MyLeaveApplicationsScreenState
             spacing: 8,
             runSpacing: 8,
             children: [
-              _buildBadge(leaveType, Icons.medical_information, AppColors.primary),
+              _buildBadge(
+                leaveType,
+                Icons.medical_information,
+                AppColors.primary,
+              ),
               _buildBadge(leaveSubType, Icons.category, Colors.grey.shade600),
             ],
           ),
@@ -354,7 +345,11 @@ class _MyLeaveApplicationsScreenState
               ),
               child: Row(
                 children: [
-                  Icon(Icons.calendar_today, size: 18, color: AppColors.primary),
+                  Icon(
+                    Icons.calendar_today,
+                    size: 18,
+                    color: AppColors.primary,
+                  ),
                   const SizedBox(width: 8),
                   Expanded(
                     child: Text(
@@ -393,10 +388,16 @@ class _MyLeaveApplicationsScreenState
             const SizedBox(height: 16),
             InkWell(
               borderRadius: BorderRadius.circular(16),
-              onTap: () =>
-                  _showDocumentPreview(documentUrl!, documentName, documentPreviewType),
+              onTap: () => _showDocumentPreview(
+                documentUrl!,
+                documentName,
+                documentPreviewType,
+              ),
               child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 12,
+                  vertical: 10,
+                ),
                 decoration: BoxDecoration(
                   color: Colors.grey.shade100,
                   borderRadius: BorderRadius.circular(16),
@@ -424,11 +425,7 @@ class _MyLeaveApplicationsScreenState
                         ),
                       ),
                     ),
-                    Icon(
-                      Icons.fullscreen,
-                      size: 18,
-                      color: AppColors.primary,
-                    ),
+                    Icon(Icons.fullscreen, size: 18, color: AppColors.primary),
                   ],
                 ),
               ),
@@ -485,10 +482,7 @@ class _MyLeaveApplicationsScreenState
                 const SizedBox(width: 4),
                 Text(
                   "Applied on: ${DateFormat('MMM d, y • h:mm a').format(createdAt)}",
-                  style: TextStyle(
-                    fontSize: 12,
-                    color: Colors.grey.shade600,
-                  ),
+                  style: TextStyle(fontSize: 12, color: Colors.grey.shade600),
                 ),
               ],
             ),
@@ -659,4 +653,3 @@ class _MyLeaveApplicationsScreenState
     return DocumentPreviewType.other;
   }
 }
-

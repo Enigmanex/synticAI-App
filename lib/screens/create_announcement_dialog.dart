@@ -41,7 +41,8 @@ class _CreateAnnouncementDialogState extends State<CreateAnnouncementDialog> {
   File? _selectedImage;
   File? _selectedPdf;
   bool _isUploading = false;
-  bool _sendPushNotification = false;
+  bool _sendPushNotification =
+      true; // Default to true - always send notifications
   String _selectedCategory = announcementCategories.first;
   String _targetAudience = announcementTargetAll;
   List<Employee> _allEmployees = [];
@@ -69,16 +70,18 @@ class _CreateAnnouncementDialogState extends State<CreateAnnouncementDialog> {
         (data["category"] as String?) ?? announcementCategories.first;
     _targetAudience = (data["targetType"] as String?) ?? announcementTargetAll;
     _departmentController.text = data["targetDepartment"] as String? ?? "";
-    _selectedEmployeeIds =
+    final selectedIds =
         (data["targetEmployeeIds"] as List<dynamic>?)
             ?.map((e) => e.toString())
             .toSet() ??
         {};
+    // Filter out admin IDs if any were previously selected
+    _selectedEmployeeIds = selectedIds;
     final imageValue = data["imageUrl"] as String?;
     _existingImageUrl = (imageValue?.isEmpty == true) ? null : imageValue;
     final pdfValue = data["pdfUrl"] as String?;
     _existingPdfUrl = (pdfValue?.isEmpty == true) ? null : pdfValue;
-    _sendPushNotification = data["sendPushNotification"] as bool? ?? false;
+    _sendPushNotification = data["sendPushNotification"] as bool? ?? true;
   }
 
   @override
@@ -93,11 +96,25 @@ class _CreateAnnouncementDialogState extends State<CreateAnnouncementDialog> {
     try {
       final employees = await _fs.getAllEmployees();
       if (!mounted) return;
+      // Filter out admins - only show employees and interns
+      final nonAdminEmployees = employees.where((e) => !e.isAdmin).toList();
+
+      // Sort employees alphabetically by name (A to Z)
+      nonAdminEmployees.sort((a, b) {
+        return a.name.toLowerCase().compareTo(b.name.toLowerCase());
+      });
+
+      final nonAdminEmployeeIds = nonAdminEmployees.map((e) => e.id).toSet();
+
       setState(() {
-        _allEmployees = employees;
+        _allEmployees = nonAdminEmployees;
         _employeeLookup = {
-          for (var employee in employees) employee.id: employee,
+          for (var employee in nonAdminEmployees) employee.id: employee,
         };
+        // Remove any admin IDs from selected employees if they exist
+        _selectedEmployeeIds.removeWhere(
+          (id) => !nonAdminEmployeeIds.contains(id),
+        );
       });
     } catch (e) {
       Get.snackbar("Error", "Could not load employees");
@@ -179,12 +196,6 @@ class _CreateAnnouncementDialogState extends State<CreateAnnouncementDialog> {
       return;
     }
 
-    if (_targetAudience == announcementTargetDepartment &&
-        _departmentController.text.trim().isEmpty) {
-      Get.snackbar("Error", "Please specify a department");
-      return;
-    }
-
     if (_targetAudience == announcementTargetEmployees &&
         _selectedEmployeeIds.isEmpty) {
       Get.snackbar("Error", "Select at least one employee");
@@ -216,9 +227,7 @@ class _CreateAnnouncementDialogState extends State<CreateAnnouncementDialog> {
 
       final category = _selectedCategory;
       final targetType = _targetAudience;
-      final targetDepartment = targetType == announcementTargetDepartment
-          ? _departmentController.text.trim()
-          : null;
+
       final targetEmployeeIds = targetType == announcementTargetEmployees
           ? _selectedEmployeeIds.toList()
           : null;
@@ -232,7 +241,6 @@ class _CreateAnnouncementDialogState extends State<CreateAnnouncementDialog> {
           pdfUrl: pdfUrl,
           category: category,
           targetType: targetType,
-          targetDepartment: targetDepartment ?? "",
           targetEmployeeIds: targetEmployeeIds ?? [],
           sendPushNotification: _sendPushNotification,
         );
@@ -245,7 +253,6 @@ class _CreateAnnouncementDialogState extends State<CreateAnnouncementDialog> {
           adminId: user["uid"],
           category: category,
           targetType: targetType,
-          targetDepartment: targetDepartment,
           targetEmployeeIds: targetEmployeeIds,
           sendPushNotification: _sendPushNotification,
         );
@@ -506,25 +513,7 @@ class _CreateAnnouncementDialogState extends State<CreateAnnouncementDialog> {
               const Text("Target Audience"),
               const SizedBox(height: 8),
               _buildTargetAudienceChips(),
-              if (_targetAudience == announcementTargetDepartment) ...[
-                const SizedBox(height: 12),
-                TextField(
-                  controller: _departmentController,
-                  decoration: InputDecoration(
-                    labelText: "Department name",
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(12),
-                      borderSide: BorderSide(
-                        color: AppColors.primary,
-                        width: 2,
-                      ),
-                    ),
-                  ),
-                ),
-              ],
+
               if (_targetAudience == announcementTargetEmployees) ...[
                 const SizedBox(height: 12),
                 ElevatedButton.icon(

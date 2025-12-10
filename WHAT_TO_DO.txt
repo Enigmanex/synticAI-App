@@ -1,0 +1,36 @@
+WHAT TO DO RIGHT NOW
+====================
+
+The function is NOT deployed yet (404 error).
+
+YOU HAVE 2 OPTIONS:
+
+OPTION 1: Deploy it yourself (if you have access)
+-----------------------------------------------
+1. Get permission:
+   Go to: https://console.cloud.google.com/iam-admin/iam?project=readpro-c466c
+   - Find your email
+   - Click Edit (pencil icon)
+   - Add role: "Cloud Functions Admin"
+   - Save
+
+2. Deploy:
+   firebase deploy --only functions:sendPrayerTimeNotification
+
+3. Test:
+   curl -X POST https://us-central1-readpro-c466c.cloudfunctions.net/sendPrayerTimeNotification \
+     -H "Content-Type: application/json" \
+     -d '{"prayerName":"Asr","message":"Test"}'
+
+OPTION 2: Ask someone to deploy it for you
+------------------------------------------
+Ask a project admin to run:
+   firebase deploy --only functions:sendPrayerTimeNotification
+
+Then you can test it!
+
+
+AFTER DEPLOYMENT:
+-----------------
+Once deployed, run the test command and check your device for the notification!
+

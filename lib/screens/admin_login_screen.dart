@@ -37,7 +37,10 @@ class _AdminLoginScreenState extends State<AdminLoginScreen> {
     setState(() => _isLoading = true);
 
     try {
-      await auth.login(_emailController.text.trim(), _passwordController.text.trim());
+      await auth.login(
+        _emailController.text.trim(),
+        _passwordController.text.trim(),
+      );
       // Auth controller will route to admin screen if user is admin
       // If not admin, it will show error
     } catch (e) {
@@ -53,6 +56,7 @@ class _AdminLoginScreenState extends State<AdminLoginScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
         leading: IconButton(
           onPressed: () => Get.back(),
           icon: const Icon(Icons.arrow_back, color: Colors.white),
@@ -62,9 +66,7 @@ class _AdminLoginScreenState extends State<AdminLoginScreen> {
         foregroundColor: Colors.white,
       ),
       body: Container(
-        decoration: BoxDecoration(
-          gradient: AppColors.backgroundGradient,
-        ),
+        decoration: BoxDecoration(gradient: AppColors.backgroundGradient),
         child: Center(
           child: SingleChildScrollView(
             padding: const EdgeInsets.all(24),
@@ -122,7 +124,10 @@ class _AdminLoginScreenState extends State<AdminLoginScreen> {
                         ),
                         focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12),
-                          borderSide: BorderSide(color: AppColors.primary, width: 2),
+                          borderSide: BorderSide(
+                            color: AppColors.primary,
+                            width: 2,
+                          ),
                         ),
                       ),
                     ),
@@ -138,7 +143,10 @@ class _AdminLoginScreenState extends State<AdminLoginScreen> {
                         ),
                         focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12),
-                          borderSide: BorderSide(color: AppColors.primary, width: 2),
+                          borderSide: BorderSide(
+                            color: AppColors.primary,
+                            width: 2,
+                          ),
                         ),
                       ),
                     ),
@@ -159,7 +167,9 @@ class _AdminLoginScreenState extends State<AdminLoginScreen> {
                           ],
                         ),
                         child: ElevatedButton(
-                          onPressed: (auth.loading.value || _isLoading) ? null : _login,
+                          onPressed: (auth.loading.value || _isLoading)
+                              ? null
+                              : _login,
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.transparent,
                             shadowColor: Colors.transparent,
@@ -173,7 +183,9 @@ class _AdminLoginScreenState extends State<AdminLoginScreen> {
                                   height: 20,
                                   child: CircularProgressIndicator(
                                     strokeWidth: 2,
-                                    valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                                    valueColor: AlwaysStoppedAnimation<Color>(
+                                      Colors.white,
+                                    ),
                                   ),
                                 )
                               : const Text(
@@ -197,4 +209,3 @@ class _AdminLoginScreenState extends State<AdminLoginScreen> {
     );
   }
 }
-

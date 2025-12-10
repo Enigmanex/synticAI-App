@@ -50,21 +50,22 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyBT5LOt_GgCC1ACvTnNB_ylVfcOVD78j6M',
-    appId: '1:432865955205:android:bafa8df2d5d968ecaf48ec',
-    messagingSenderId: '432865955205',
-    projectId: 'readpro-c466c',
-    storageBucket: 'readpro-c466c.firebasestorage.app',
+    apiKey: 'AIzaSyD40zPl0vQLeBpWEE-2nrDNUt30DA0os3s',
+    appId: '1:612154567444:android:d1f666bdd7014a7393b001',
+    messagingSenderId: '612154567444',
+    projectId: 'webchat-d646a',
+    databaseURL: 'https://webchat-d646a-default-rtdb.asia-southeast1.firebasedatabase.app',
+    storageBucket: 'webchat-d646a.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyB-4hpljrAVJ_rhRUzSYdV83HDe7wLYz0Y',
-    appId: '1:432865955205:ios:cf03bc0bba13b7b6af48ec',
-    messagingSenderId: '432865955205',
-    projectId: 'readpro-c466c',
-    storageBucket: 'readpro-c466c.firebasestorage.app',
-    androidClientId: '432865955205-36u7is9vuflne5uf1a0egflathr3unse.apps.googleusercontent.com',
-    iosClientId: '432865955205-j99jlqcgtj2l2b9bk65sv4g1pfqi5pa8.apps.googleusercontent.com',
+    apiKey: 'AIzaSyAaaBc_mY4EJsd6cDZAKgU17F3eoR7MPQA',
+    appId: '1:612154567444:ios:8bcada5d17740b6393b001',
+    messagingSenderId: '612154567444',
+    projectId: 'webchat-d646a',
+    databaseURL: 'https://webchat-d646a-default-rtdb.asia-southeast1.firebasedatabase.app',
+    storageBucket: 'webchat-d646a.appspot.com',
     iosBundleId: 'com.example.attendenceApp',
   );
+
 }
